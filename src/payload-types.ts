@@ -64,7 +64,9 @@ export interface Config {
   auth: {
     users: UserAuthOperations;
   };
-  blocks: {};
+  blocks: {
+    tableBlock: TableBlock;
+  };
   collections: {
     pages: Page;
     posts: Post;
@@ -139,6 +141,15 @@ export interface UserAuthOperations {
     email: string;
     password: string;
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tableBlock".
+ */
+export interface TableBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'tableBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
