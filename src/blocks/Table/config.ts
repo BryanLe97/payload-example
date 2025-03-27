@@ -1,16 +1,15 @@
 import type { Block } from 'payload'
+import { lexicalEditor, EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical'
 
 export const TableBlock: Block = {
   slug: 'tableBlock',
   fields: [
     {
-      name: 'arrayValue',
-      type: 'ui',
-      admin: {
-        components: {
-          Field: '@/blocks/Table/Component#TableBlock',
-        },
-      },
+      name: 'content',
+      type: 'richText',
+      editor: lexicalEditor({
+        features: () => [EXPERIMENTAL_TableFeature()],
+      }),
     },
   ],
 }

@@ -1,10 +1,12 @@
 // storage-adapter-import-placeholder
 import { postgresAdapter } from '@payloadcms/db-postgres'
-
+import { lexicalEditor, EXPERIMENTAL_TableFeature } from '@payloadcms/richtext-lexical'
 import sharp from 'sharp' // sharp-import
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { TableBlock } from '@/blocks/Table/config'
+import { TableBlockV2 } from '@/blocks/Table-v2/config'
+
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
@@ -15,7 +17,6 @@ import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
 const filename = fileURLToPath(import.meta.url)
@@ -59,14 +60,20 @@ export default buildConfig({
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
-  editor: defaultLexical,
+  editor: lexicalEditor({
+    features: ({ defaultFeatures, rootFeatures }) => [
+      ...defaultFeatures,
+      ...rootFeatures,
+      EXPERIMENTAL_TableFeature(),
+    ],
+  }),
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
-  blocks: [TableBlock],
+  blocks: [TableBlock, TableBlockV2],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

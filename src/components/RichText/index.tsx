@@ -1,34 +1,42 @@
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
+import { TableBlock } from '@/blocks/Table/Component'
+import { TableFieldComponent } from '@/blocks/Table-v2/Component/FieldComponent'
+
+import { BannerBlock } from '@/blocks/Banner/Component'
+import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { cn } from '@/utilities/ui'
+
 import {
   DefaultNodeTypes,
   SerializedBlockNode,
   SerializedLinkNode,
   type DefaultTypedEditorState,
 } from '@payloadcms/richtext-lexical'
+
 import {
   JSXConvertersFunction,
   LinkJSXConverter,
   RichText as ConvertRichText,
 } from '@payloadcms/richtext-lexical/react'
 
-import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
-
 import type {
   BannerBlock as BannerBlockProps,
   CallToActionBlock as CTABlockProps,
   MediaBlock as MediaBlockProps,
   TableBlock as TableBlockProps,
+  TableBlockV2 as TableV2Props,
 } from '@/payload-types'
-import { BannerBlock } from '@/blocks/Banner/Component'
-import { TableBlock } from '@/blocks/Table/Component'
-
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { cn } from '@/utilities/ui'
 
 type NodeTypes =
   | DefaultNodeTypes
   | SerializedBlockNode<
-      CTABlockProps | MediaBlockProps | BannerBlockProps | TableBlockProps | CodeBlockProps
+      | CTABlockProps
+      | MediaBlockProps
+      | BannerBlockProps
+      | CodeBlockProps
+      | TableBlockProps
+      | TableV2Props
     >
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
@@ -56,10 +64,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
       />
     ),
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
-    tableBlock: ({ node }) => <TableBlock className="col-start-1 col-span-3" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
+    tableBlock: ({ node }) => <TableBlock className="col-start-2 mb-4" {...node.fields} />,
+    tableBlockV2: () => <TableFieldComponent />,
   },
 })
+
 type Props = {
   data: DefaultTypedEditorState
   enableGutter?: boolean
@@ -68,6 +78,7 @@ type Props = {
 
 export default function RichText(props: Props) {
   const { className, enableProse = true, enableGutter = true, ...rest } = props
+
   return (
     <ConvertRichText
       converters={jsxConverters}

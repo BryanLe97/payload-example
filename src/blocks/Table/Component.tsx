@@ -1,17 +1,17 @@
-import React from 'react'
-import { TableBlock as TableBlockProps } from '@/payload-types'
+'use client'
+import type { TableBlock as TableBlockProps } from 'src/payload-types'
 import { cn } from '@/utilities/ui'
+import React from 'react'
+import RichText from '@/components/RichText'
 
-import { Table } from './Component.client'
-
-type Props = TableBlockProps & {
+type Props = {
   className?: string
-  arrayValue: Array<Array<string>>
-}
-export const TableBlock: React.FC<Props> = ({ className, arrayValue }) => {
+} & TableBlockProps
+
+export const TableBlock: React.FC<Props> = ({ className, content }) => {
   return (
     <div className={cn('mx-auto my-8 w-full', className)}>
-      <Table propValue={arrayValue} />
+      <RichText data={content} enableGutter={false} enableProse={false} />
     </div>
   )
 }
