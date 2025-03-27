@@ -1,7 +1,7 @@
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { TableBlock } from '@/blocks/Table/Component'
-import { TableFieldComponent } from '@/blocks/Table-v2/Component/FieldComponent'
+import { TableFieldComponent } from '@/blocks/Table-v2/Component'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'

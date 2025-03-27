@@ -173,6 +173,7 @@ export interface TableBlock {
  * via the `definition` "tableBlockV2".
  */
 export interface TableBlockV2 {
+  selectTable?: ('VehiclePricing' | 'VehicleSpecs') | null;
   tableData?:
     | {
         [k: string]: unknown;
