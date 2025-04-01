@@ -25,13 +25,11 @@ export const TableFieldComponent: React.FC<TableV2Props> = (prop) => {
     const updatedTable = tableValue[selectedKey].map((r, ri) =>
       ri === row ? r.map((c, ci) => (ci === col ? val : c)) : r,
     )
-    console.log(11, tableValue)
     // Update the table object immutably
     setValue({
       ...tableValue,
       [selectedKey]: updatedTable,
     })
-    console.log(22, tableValue)
   }
 
   return (
