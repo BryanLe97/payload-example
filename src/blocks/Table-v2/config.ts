@@ -31,8 +31,8 @@ export const TableBlockV2: Block = {
       type: 'json',
       defaultValue: TableType,
       jsonSchema: {
-        uri: 'https://example.com/schemas/table-data.json', // Provide a valid URI
-        fileMatch: ['*.json'],
+        uri: '', // Dummy
+        fileMatch: [''], // Dummy
         schema: {
           oneOf: [
             {
