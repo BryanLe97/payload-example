@@ -1,5 +1,3 @@
-type TableData = string[][]
-
 export const TableType = {
   VehiclePricing: [
     [['Model'], ['Price before on-road costs']],

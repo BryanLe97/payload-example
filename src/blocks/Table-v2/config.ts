@@ -14,6 +14,7 @@ export const TableBlockV2: Block = {
       name: 'selectTable',
       type: 'select',
       defaultValue: 'VehiclePricing',
+      required: true,
       options: [
         {
           label: 'Vehicle Pricing',
@@ -29,26 +30,36 @@ export const TableBlockV2: Block = {
       name: 'tableData',
       type: 'json',
       defaultValue: TableType,
+      jsonSchema: {
+        uri: 'https://example.com/schemas/table-data.json', // Provide a valid URI
+        fileMatch: ['*.json'],
+        schema: {
+          oneOf: [
+            {
+              type: 'object',
+              additionalProperties: {
+                type: 'array',
+                items: {
+                  type: 'array',
+                  items: {
+                    type: ['string', 'array'],
+                  },
+                },
+              },
+            },
+            {
+              type: 'null',
+            },
+          ],
+        },
+      },
       admin: {
         components: {
-          Field: '@/blocks/Table-v2/Component#TableFieldComponent',
+          Field: {
+            path: '@/blocks/Table-v2/Component.client#TableComponent',
+          },
         },
       },
     },
   ],
-  // fields: [
-  //   {
-  //     name: 'tableData',
-  //     type: 'json',
-  //     defaultValue: [
-  //       [[''], [''], ['']],
-  //       [[''], [''], ['']],
-  //     ],
-  //     admin: {
-  //       components: {
-  //         Field: '@/blocks/Table-v2/Component#TableFieldComponent',
-  //       },
-  //     },
-  //   },
-  // ],
 }

@@ -173,16 +173,10 @@ export interface TableBlock {
  * via the `definition` "tableBlockV2".
  */
 export interface TableBlockV2 {
-  selectTable?: ('VehiclePricing' | 'VehicleSpecs') | null;
-  tableData?:
-    | {
-        [k: string]: unknown;
-      }
-    | unknown[]
-    | string
-    | number
-    | boolean
-    | null;
+  selectTable: 'VehiclePricing' | 'VehicleSpecs';
+  tableData?: {
+    [k: string]: (string | unknown[])[][];
+  } | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'tableBlockV2';
@@ -1688,15 +1682,10 @@ export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?:
-      | ({
-          relationTo: 'pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'posts';
-          value: number | Post;
-        } | null);
+    doc?: {
+      relationTo: 'pages';
+      value: number | Page;
+    } | null;
     global?: string | null;
     user?: (number | null) | User;
   };

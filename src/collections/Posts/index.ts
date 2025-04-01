@@ -228,12 +228,7 @@ export const Posts: CollectionConfig<'posts'> = {
     afterDelete: [revalidateDelete],
   },
   versions: {
-    drafts: {
-      autosave: {
-        interval: 100, // We set this interval for optimal live preview
-      },
-      schedulePublish: true,
-    },
+    drafts: true,
     maxPerDoc: 50,
   },
 }

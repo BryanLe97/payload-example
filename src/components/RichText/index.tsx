@@ -1,7 +1,7 @@
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { CodeBlock, CodeBlockProps } from '@/blocks/Code/Component'
 import { TableBlock } from '@/blocks/Table/Component'
-import { TableFieldComponent } from '@/blocks/Table-v2/Component'
+import { TableComponent } from '@/blocks/Table-v2/Component.client'
 
 import { BannerBlock } from '@/blocks/Banner/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
@@ -66,7 +66,7 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({ defaultConverters }) 
     code: ({ node }) => <CodeBlock className="col-start-2" {...node.fields} />,
     cta: ({ node }) => <CallToActionBlock {...node.fields} />,
     tableBlock: ({ node }) => <TableBlock className="col-start-2 mb-4" {...node.fields} />,
-    tableBlockV2: () => <TableFieldComponent />,
+    tableBlockV2: ({ node }) => <TableComponent {...node.fields} />,
   },
 })
 
